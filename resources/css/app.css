@@ -1,0 +1,80 @@
+.quiz-question {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 5px;
+    color: #333;
+}
+
+.quiz-option {
+    background-color: #fafafa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.quiz-single-option {
+    padding: 8px 0 !important;
+    color: #555 !important;
+    border-bottom: 1px solid #ddd !important;
+    list-style: none;
+}
+
+.quiz-single-option:last-child {
+    border-bottom: none !important;
+}
+
+.label {
+    position: relative;
+    padding: 15px 30px 15px 50px;
+    border-radius: 6px;
+    background-color: white;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    display: block;
+    margin-bottom: 5px;
+}
+.label.text {
+    user-select: none;
+}
+
+.checkbox-input {
+    display: none;
+}
+
+.checkbox {
+    display: block;
+    position: absolute;
+    top: 17.5px;
+    left: 25px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+}
+.checkbox::before {
+    display: block;
+    content: "";
+    position: absolute;
+    bottom: 65%;
+    left: 7%;
+    width: 45%;
+    height: 110%;
+    max-width: 0%;
+    max-height: 0%;
+    opacity: 0;
+    border-width: 0px 3px 3px 0px;
+    border-style: solid;
+    border-color: green;
+    transform-origin: left bottom;
+    transform: rotate(45deg);
+    transition: all 0ms ease;
+}
+
+.checkbox-input:checked ~ .checkbox::before {
+    max-width: 50%;
+    max-height: 110%;
+    opacity: 1;
+    transition: opacity 0ms linear 0ms, max-width 35ms ease-in 0ms,
+        max-height 35ms ease-out 35ms;
+}
