@@ -12,9 +12,10 @@
 >> - #### Attend Quizzes: Performers can participate in available quizzes. They select answers for each question, and their responses are stored and see their score after submit the quiz immediately.
 >> - #### Leaderboard: After completing quizzes, performers' scores are calculated and displayed on a leaderboard, allowing them to see their rankings compared to other participants.
 ## ER-Diagram
-![ER-Diagram](https://ibb.co/myq6SQ0 "ER-Diagram")
+[![ER-Diagram](https://i.postimg.cc/R0hTJ0Bx/Screenshot-3.png)](https://postimg.cc/KKXTdxj0)
+
 ## Flow Chart
-![Flow Chart](https://ibb.co/4WvYCbF "Flow Chart")
+[![Flow Chart](https://i.postimg.cc/t425gx8z/Screenshot-4.png)](https://postimg.cc/FYkcW7rf)
 
 
 ## Installation commands , open project directory cmd or powershell
