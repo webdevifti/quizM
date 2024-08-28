@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getQuiz, quizSubmit } from "../../features/front/quiz/frontQuizSlice";
 import usePageTitle from "../title";
 import { toast } from "react-toastify";
+import Skeleton from "react-loading-skeleton";
 
 const SingleQuiz = () => {
     const [userAnswers, setUserAnswers] = useState({});
@@ -105,7 +106,7 @@ const SingleQuiz = () => {
                             ''
                         ) : (
                             <>
-                                {isLoading && <h3>Loading...</h3>}
+                                {isLoading && <Skeleton count={4}/>}
                                 {!isLoading && isError && <h3>{error}</h3>}
                                 {!isLoading &&
                                     !isError &&

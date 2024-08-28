@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteQuiz, fetchQuizes } from "../../../features/quiz/quizSlice";
 import { toast } from "react-toastify";
 import usePageTitle from "../../title";
+import Skeleton from "react-loading-skeleton";
 const Quiz = () => {
     usePageTitle("All Quizes");
     const { quizes, isLoading, isError, error } = useSelector(
@@ -52,7 +53,7 @@ const Quiz = () => {
 
                 <section className="section dashboard">
                     <div className="row">
-                        {isLoading && (<h3>Loading...</h3>)}
+                        {isLoading && (<Skeleton count={10}/>)}
                         {!isLoading && isError && (<h3>{error}</h3>)}
                         {!isLoading && !isError && quizes && quizes.length === 0 && (<h3>No Quiz Available.</h3>)}
                         {!isLoading && !isError && quizes && quizes.length > 0 ? (

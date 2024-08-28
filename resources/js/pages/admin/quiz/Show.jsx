@@ -4,6 +4,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { showQuiz } from "../../../features/quiz/quizSlice";
 import usePageTitle from "../../title";
+import Skeleton from "react-loading-skeleton";
 
 const Show = () => {
     usePageTitle("Quiz Details");
@@ -16,9 +17,7 @@ const Show = () => {
     useEffect(() => {
         dispatch(showQuiz(param.id));
     }, [dispatch, param.id]);
-    if (isLoading || !quizes || !quizes.questions) {
-        return <div>Loading...</div>;
-    }
+   
     return (
         <AdminLayout>
             <main id="main" className="main">
@@ -50,50 +49,69 @@ const Show = () => {
                 </div>
 
                 <section className="section dashboard">
-                    <div className="row">
-                        {isLoading && <h3>Loading...</h3>}
-                        {!isLoading && isError && <h3>{error}</h3>}
+               
+                    {isLoading || !quizes || !quizes.questions ? (
+                        <Skeleton count={4} />
+                    ) : (
+                        <div className="row">
+                            {!isLoading && isError && <h3>{error}</h3>}
 
-                        {!isLoading && !isError ? (
-                            <div className="card">
-                                <div className="card-header bg-dark text-white py-2">
-                                    <h4>{quizes.title}</h4>
-                                    <p>{quizes.description}</p>
-                                </div>
-                                <div className="card-body">
-                                    <div className="row">
-                                        {quizes.questions.map((q, qi) => (
-                                            <div className="col-lg-4" key={qi}>
-                                                <h4 className="quiz-question">
-                                                    {q.question_text}
-                                                </h4>
-                                                <strong>Type: {q.type}</strong>
-                                               
-                                                <ul className="quiz-option">
-                                                    {q.options &&
-                                                        q.options.map(
-                                                            (option, oi) => (
-                                                                <li
-                                                                    className="quiz-single-option"
-                                                                    key={oi}
-                                                                >
-                                                                    {option.is_correct == 1 ? (<b className="text-success">Correct: </b>):''}
-                                                                    {
-                                                                        option.option_text
-                                                                    }
-                                                                </li>
-                                                            )
-                                                        )}
-                                                </ul>
-                                            </div>
-                                        ))}
+                            {!isLoading && !isError ? (
+                                <div className="card">
+                                    <div className="card-header bg-dark text-white py-2">
+                                        <h4>{quizes.title}</h4>
+                                        <p>{quizes.description}</p>
+                                    </div>
+                                    <div className="card-body">
+                                        <div className="row">
+                                            {quizes.questions.map((q, qi) => (
+                                                <div
+                                                    className="col-lg-4"
+                                                    key={qi}
+                                                >
+                                                    <h4 className="quiz-question">
+                                                        {q.question_text}
+                                                    </h4>
+                                                    <strong>
+                                                        Type: {q.type}
+                                                    </strong>
+
+                                                    <ul className="quiz-option">
+                                                        {q.options &&
+                                                            q.options.map(
+                                                                (
+                                                                    option,
+                                                                    oi
+                                                                ) => (
+                                                                    <li
+                                                                        className="quiz-single-option"
+                                                                        key={oi}
+                                                                    >
+                                                                        {option.is_correct ==
+                                                                        1 ? (
+                                                                            <b className="text-success">
+                                                                                Correct:{" "}
+                                                                            </b>
+                                                                        ) : (
+                                                                            ""
+                                                                        )}
+                                                                        {
+                                                                            option.option_text
+                                                                        }
+                                                                    </li>
+                                                                )
+                                                            )}
+                                                    </ul>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ) : (
-                            ""
-                        )}
-                    </div>
+                            ) : (
+                                ""
+                            )}
+                        </div>
+                    )}
                 </section>
             </main>
         </AdminLayout>

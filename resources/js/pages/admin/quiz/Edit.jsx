@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editQuiz, updateQuiz } from "../../../features/quiz/quizSlice";
 import { toast } from "react-toastify";
 import usePageTitle from "../../title";
+import Skeleton from "react-loading-skeleton";
 
 const Edit = () => {
     usePageTitle("Edit Quiz");
@@ -198,7 +199,7 @@ const Edit = () => {
                 <section className="section dashboard">
                     <div className="row">
                         {isLoading ? (
-                            <h3>Loading..</h3>
+                            <Skeleton count={4} />
                         ) : (
                             <form onSubmit={handleSubmit}>
                                 <div className="card">

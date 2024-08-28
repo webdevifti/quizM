@@ -9,6 +9,7 @@ import {
 import { toast } from "react-toastify";
 import usePageTitle from "../../title";
 import moment from "moment";
+import Skeleton from "react-loading-skeleton";
 
 const Performer = () => {
     usePageTitle("Manage Performers");
@@ -30,8 +31,8 @@ const Performer = () => {
         }
     };
     const formatDate = (dateString) => {
-        return moment(dateString).format('D-MMMM, YYYY h:mm a');
-    }
+        return moment(dateString).format("D-MMMM, YYYY h:mm a");
+    };
     return (
         <AdminLayout>
             <main id="main" className="main">
@@ -54,59 +55,67 @@ const Performer = () => {
                 </div>
 
                 <section className="section dashboard">
-                    <div className="row">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Username</th>
-                                    <th>Joined</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            {!isLoading && !isError && performers && performers.length > 0 ? (
-                                <tbody>
-                                    {isLoading && (
-                                        <tr>
-                                            <td>Loading...</td>
-                                        </tr>
-                                    )}
-                                    {!isLoading &&
-                                        !isError && performers &&
-                                        performers.length === 0 && (
-                                            <tr>
-                                                <td>No One Available.</td>
+                    {isLoading ? (
+                        <Skeleton count={4} />
+                    ) : (
+                        <div className="row">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Username</th>
+                                        <th>Joined</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                {!isLoading &&
+                                !isError &&
+                                performers &&
+                                performers.length > 0 ? (
+                                    <tbody>
+                                        {!isLoading &&
+                                            !isError &&
+                                            performers &&
+                                            performers.length === 0 && (
+                                                <tr>
+                                                    <td>No One Available.</td>
+                                                </tr>
+                                            )}
+                                        {performers.map((item, index) => (
+                                            <tr key={item.id}>
+                                                <td>{index + 1}</td>
+                                                <td>{item.name}</td>
+                                                <td>{item.email}</td>
+                                                <td>{item.username}</td>
+                                                <td>
+                                                    {formatDate(
+                                                        item.created_at
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-sm btn-danger"
+                                                        onClick={(e) =>
+                                                            handleDelete(
+                                                                item.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </td>
                                             </tr>
-                                        )}
-                                    {performers.map((item, index) => (
-                                        <tr key={item.id}>
-                                            <td>{index + 1}</td>
-                                            <td>{item.name}</td>
-                                            <td>{item.email}</td>
-                                            <td>{item.username}</td>
-                                            <td>{formatDate(item.created_at)}</td>
-                                            <td>
-                                               
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-sm btn-danger"
-                                                    onClick={(e) =>
-                                                        handleDelete(item.id)
-                                                    }
-                                                >
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            ) : (
-                                ""
-                            )}
-                        </table>
-                    </div>
+                                        ))}
+                                    </tbody>
+                                ) : (
+                                    ""
+                                )}
+                            </table>
+                        </div>
+                    )}
                 </section>
             </main>
         </AdminLayout>

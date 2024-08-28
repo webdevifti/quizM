@@ -5,6 +5,7 @@ import usePageTitle from "../../title";
 import { useDispatch, useSelector } from "react-redux";
 import { analyzQuiz } from "../../../features/quiz/quizSlice";
 import moment from "moment";
+import Skeleton from "react-loading-skeleton";
 
 const Analyz = () => {
     usePageTitle("Quiz Analysis");
@@ -54,7 +55,7 @@ const Analyz = () => {
                 <section className="section dashboard">
                     <div className="row">
                         <div className="col-lg-12">
-                            {isLoading && <h3>Loading...</h3>}
+                            {isLoading && <Skeleton count={4} />}
                             {!isLoading && isError && <h3>{error}</h3>}
                             {!isLoading &&
                                 !isError &&

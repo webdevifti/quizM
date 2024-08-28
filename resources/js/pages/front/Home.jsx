@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getQuizes } from "../../features/front/quiz/frontQuizSlice";
 import usePageTitle from "../title";
+import Skeleton from "react-loading-skeleton";
 
 
 const Home = () => {
@@ -43,7 +44,7 @@ const Home = () => {
                 <section className="section dashboard">
                     <div className="row">
                         <div className="col-lg-12">
-                            {isLoading && <h3>Loading...</h3>}
+                            {isLoading && <Skeleton count={4}/>}
                             {!isLoading && isError && <h3>{error}</h3>}
                             {!isLoading && !isError && quizes && quizes.length === 0 && (
                                 <h3>No Quiz Available.</h3>
